@@ -1,3 +1,7 @@
+# Ref
+# real python - https://realpython.com/python-heapq-module/
+# your old notes
+
 # NOTE: 1
 # a heap is a complete BT i.e all nodes have two children.
 # there can be two types of heap
