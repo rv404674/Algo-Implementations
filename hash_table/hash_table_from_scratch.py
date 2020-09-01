@@ -15,7 +15,7 @@ values = [None] * ARR_LEN
 def get_index(key):
     return hash(key) % ARR_LEN
 
-# NOTE: Handle collisions as well.
+# 1. NOTE: Handle collisions as well.
 # We are using Chaining to handle collisions.
 # if len(list)=2, there is a 50% chance that 2 strings will want to use same index. So
 # instead of storing a (key,val) pair at each index instead store a list of key,val pairs.
@@ -23,6 +23,20 @@ values = [
     [("foo",1), ("rahul",2)],
     [("sachin",3), ("verma",4)]
 ]
+
+# 2. NOTE: Load Factor.
+# 1. if there are n keys, and b is the size of hash table. Then Load Factor = n/b
+# 2. Load Factor (0.75 usually) is kept low so that there are less number of entries at one index, and lookup
+# time is almost constant.
+# 3. A high load factor means less space overhead but more lookup time and viceversa.
+
+# 3. We will soon get to 100% collisions as all our indexes are populated, and now we will be doing linear
+# lookups instead of constant ones. So why dont we just start with 1024 size. We can but it will take lot of
+# memory even for a small smallest hash table.
+
+# SOLUTION: keep the size flexible.
+# Expand whenever hash table becomes too populated.
+# start with len of 4 and double it to 8,16, 32..  as and when required.
 
 class HashTable(object):
     def __init__(self, **kwargs):
