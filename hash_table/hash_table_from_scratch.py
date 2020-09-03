@@ -26,13 +26,11 @@ values = [
 
 # 2. NOTE: Load Factor.
 # 1. if there are n keys, and b is the size of hash table. Then Load Factor = n/b
-# 2. Load Factor (0.75 usually) is kept low so that there are less number of entries at one index, and lookup
-# time is almost constant.
+# 2. Load Factor (0.75 usually) is kept low so that there are less number of entries at one index, and lookup time is almost constant.
 # 3. A high load factor means less space overhead but more lookup time and viceversa.
 
 # 3. We will soon get to 100% collisions as all our indexes are populated, and now we will be doing linear
-# lookups instead of constant ones. So why dont we just start with 1024 size. We can but it will take lot of
-# memory even for a small smallest hash table.
+# lookups instead of constant ones. So why dont we just start with 1024 size. We can but it will take lot of memory even for a small smallest hash table.
 
 # SOLUTION: keep the size flexible.
 # Expand whenever hash table becomes too populated.
@@ -48,6 +46,26 @@ class HashTable(object):
         """
         return hash(key) % len(self.array)
     
+    def is_full(self):
+        cnt = 0
+        for i in self.array:
+            if i:
+                cnt+=1
+        # return a bool.
+        return cnt>len(self.array)/2
+    
+    def double(self):
+        ht2 = HashTable(initial_size = 2*len(self.array))
+        # NOTE: you can't just add values.
+        # you need to REHASH them.
+        for i in self.array:
+            if not i:
+                # check if not None
+                for x in i:
+                    ht2.add(x[0],x[1])
+
+        self.array = ht2.array
+
     def add(self, key,val):
         index = self.hash(key)
         if not self.array[index]:
