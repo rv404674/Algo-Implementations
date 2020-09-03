@@ -67,6 +67,9 @@ class HashTable(object):
         self.array = ht2.array
 
     def add(self, key,val):
+        if self.is_full():
+            self.double()
+        
         index = self.hash(key)
         if not self.array[index]:
             # index is empty, directly insert.
