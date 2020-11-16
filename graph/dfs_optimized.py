@@ -6,7 +6,8 @@ graph = {
     'C':['F'],
     'D':[],
     'E':['F'],
-    'F':[]
+    'F':[],
+    'G':[]
 }
 
 def dfsutil(graph, visited, node):
@@ -22,6 +23,8 @@ def dfsutil(graph, visited, node):
 def dfs():
     # NOTE - in operation in set and dict is O(1)
     visited = set()
-    dfsutil(graph, visited, 'A')
+    # NOTE - start dfs from every edge, as there might be a disconnected node
+    for node in graph.keys():
+        dfsutil(graph, visited, node)
 
 dfs()
